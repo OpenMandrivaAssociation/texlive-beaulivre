@@ -1,6 +1,6 @@
 Name:		texlive-beaulivre
 Version:	64280
-Release:	1
+Release:	2
 Summary:	Write your books in a colorful way
 Group:		Publishing
 URL:		http://www.ctan.org/tex-archive/macros/latex/contrib/beaulivre
