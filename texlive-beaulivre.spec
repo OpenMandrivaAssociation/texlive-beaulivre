@@ -1,5 +1,5 @@
 Name:		texlive-beaulivre
-Version:	68376
+Version:	70050
 Release:	1
 Summary:	Write your books in a colorful way
 Group:		Publishing
