@@ -3,7 +3,7 @@ Version:	70050
 Release:	1
 Summary:	Write your books in a colorful way
 Group:		Publishing
-URL:		http://www.ctan.org/tex-archive/macros/latex/contrib/beaulivre
+URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/beaulivre
 License:	lppl1.3c
 Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/beaulivre.r%{version}.tar.xz
 Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/beaulivre.doc.r%{version}.tar.xz
