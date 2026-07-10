@@ -11,9 +11,7 @@ License:	lppl1.3c
 Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/beaulivre.r%{tl_revision}.tar.xz
 Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/beaulivre.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
-BuildSystem:	texlive
-BuildRequires:	texlive-tlpkg
-%texlive_base_requires
+Requires(pre):	texlive-tlpkg
 Requires:	texlive(colorist)
 Provides:	texlive(%{tl_name}) = %{tl_revision}
 
@@ -27,3 +25,42 @@ class series and depends on colorist.sty from the colorist package. The
 package name "beaulivre" is taken from the French words "beau" (=
 "beautiful") and "livre" (= "book").
 
+%prep
+%setup -q -c -a1
+rm -rf tlpkg
+if [ -d RELOC ]; then
+	cp -a RELOC/. .
+	rm -rf RELOC
+fi
+
+%build
+
+%install
+mkdir -p %{buildroot}%{_datadir}/texmf-dist
+# Flat tlnet layout: tex/ doc/ source/ fonts/ ... -> texmf-dist/
+if [ -d texmf-dist ]; then
+	cp -a texmf-dist/. %{buildroot}%{_datadir}/texmf-dist/
+elif [ -d texmf ]; then
+	mkdir -p %{buildroot}%{_datadir}/texmf
+	cp -a texmf/. %{buildroot}%{_datadir}/texmf/
+else
+	for d in * .[!.]* ..?*; do
+		[ -e "$d" ] || continue
+		case "$d" in tlpkg|RELOC) continue ;; esac
+		cp -a "$d" %{buildroot}%{_datadir}/texmf-dist/
+	done
+fi
+rm -rf %{buildroot}%{_datadir}/texmf-dist/tlpkg
+
+%files
+%dir %{_datadir}/texmf-dist
+%dir %{_datadir}/texmf-dist/doc
+%dir %{_datadir}/texmf-dist/tex
+%dir %{_datadir}/texmf-dist/doc/latex
+%dir %{_datadir}/texmf-dist/tex/latex
+%dir %{_datadir}/texmf-dist/doc/latex/beaulivre
+%dir %{_datadir}/texmf-dist/tex/latex/beaulivre
+%doc %{_datadir}/texmf-dist/doc/latex/beaulivre/DEPENDS.txt
+%doc %{_datadir}/texmf-dist/doc/latex/beaulivre/LICENSE
+%doc %{_datadir}/texmf-dist/doc/latex/beaulivre/README.md
+%{_datadir}/texmf-dist/tex/latex/beaulivre/beaulivre.cls
